@@ -11,6 +11,7 @@ endif
 
 copy-build-plan:
 	@# Help: A helper target to copy the remote build script to local service repo
+	@echo $(RAW_URL)
 	@mkdir -p scripts
 	@curl --location --silent https://raw.githubusercontent.com/$(RAW_URL)/main/scripts/build.sh > ./scripts/build.sh
 	@chmod u+x ./scripts/build.sh
