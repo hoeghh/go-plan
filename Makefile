@@ -1,6 +1,7 @@
 build-plan:
 #	@echo "Hello Bura : $(BURAFILE)"
 #	@echo "Hello Plan : $(PLAN)"
+	@# Help: A target to build the local service repo
 ifneq ("$(wildcard ./scripts/build.sh)","")
 	@./scripts/build.sh
 else
