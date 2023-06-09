@@ -31,7 +31,7 @@ if [ -f "sysdig.scan/results.json" ]; then
     MEDIUM_COUNT=$(cat sysdig.scan/results.json   | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="Medium") | .total')
     RESULT_URL=$(cat sysdig.scan/results.json     | jq -r '.info.resultURL')
     
-    echo "Scanned $(date) by Sysdig"
+    echo "- Scanned $(date) by Sysdig"
     echo "- Severity : "
     echo "   - Critical : $CRITICAL_COUNT"
     echo "   - High     : $HIGH_COUNT"
