@@ -17,20 +17,20 @@ if [ -f "bura.yaml" ]; then
     export REGISTRY_ORG=$(cat bura.yaml | yq .vars.service.registry.org)
 fi
 
-mkdir -p sysdig.scan
+mkdir -p .scan
 
 sysdig-cli-scanner \
     --apiurl https://eu1.app.sysdig.com/secure/ \
-    --dbpath=sysdig.scan/ \
-    --output-json=sysdig.scan/results.json \
-    --logfile=sysdig.scan/scan.log \
-    $REGISTRY_ORG/$IMAGE:$IMAGE_TAG > sysdig.scan/scanner.output
+    --dbpath=.scan/ \
+    --output-json=.scan/results.json \
+    --logfile=.scan/scan.log \
+    $REGISTRY_ORG/$IMAGE:$IMAGE_TAG > .scan/scanner.output
 
-if [ -f "sysdig.scan/results.json" ]; then
-    CRITICAL_COUNT=$(cat sysdig.scan/results.json | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="Critical") | .total')
-    HIGH_COUNT=$(cat sysdig.scan/results.json     | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="High") | .total')
-    MEDIUM_COUNT=$(cat sysdig.scan/results.json   | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="Medium") | .total')
-    RESULT_URL=$(cat sysdig.scan/results.json     | jq -r '.info.resultURL')
+if [ -f ".scan/results.json" ]; then
+    CRITICAL_COUNT=$(cat .scan/results.json | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="Critical") | .total')
+    HIGH_COUNT=$(cat .scan/results.json     | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="High") | .total')
+    MEDIUM_COUNT=$(cat .scan/results.json   | jq -r '.vulnerabilities.bySeverity[] | select(.severity.label=="Medium") | .total')
+    RESULT_URL=$(cat .scan/results.json     | jq -r '.info.resultURL')
     
     echo "- Scanned $(date) by Sysdig"
     echo "- Severity : "
