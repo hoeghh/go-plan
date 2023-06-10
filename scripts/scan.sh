@@ -1,4 +1,4 @@
-if ! command -v sysdig-cli-scanner2 &> /dev/null; then
+if ! command -v sysdig-cli-scanner &> /dev/null; then
     echo "sysdig-cli-scanner could not be found"
     echo "Install on mac via :"
     echo "  - curl -LO \"https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/$(uname -s | tr '[:upper:]' '[:lower:]')/amd64/sysdig-cli-scanner\""
