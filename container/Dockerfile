@@ -12,8 +12,9 @@ RUN GO111MODULE=off GOOS=linux go build -o /app
 
 ## the lightweight scratch image we'll
 ## run our application within
-FROM alpine:latest AS production
-
+FROM scratch AS production
+RUN mkdir /app
+WORKDIR /app
 COPY --from=builder /app .
 EXPOSE 8080
 
