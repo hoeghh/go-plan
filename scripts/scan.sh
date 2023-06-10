@@ -4,7 +4,8 @@ if ! command -v sysdig-cli-scanner &> /dev/null; then
 fi
 
 if [ -z "$SECURE_API_TOKEN" ];then
-      export SECURE_API_TOKEN=$1
+      echo "- Environment variable SECURE_API_TOKEN is empty... exiting."
+      exit 1
 fi
 
 export IMAGE_TAG="${IMGTAG:-"latest"}"
