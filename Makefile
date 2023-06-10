@@ -1,4 +1,5 @@
 build-container-plan:
+	@# Help: A target to build the local service repo
 	@./.plan/scripts/build-container.sh
 
 build-plan:
