@@ -1,6 +1,17 @@
 build-container-plan:
 	@# Help: A target to build the local service container
+ifneq ("$(wildcard ./scripts/build-container.sh)","")
+	@./scripts/build-container.sh
+else
 	@./.plan/scripts/build-container.sh
+endif
+
+copy-build-container-plan:
+	@# Help: A helper target to copy the remote build container script to local service repo
+	@mkdir -p scripts
+	@ORG_REPO=$(shell echo $(PLAN) | cut -d"/" -f4- | cut -d"." -f1); \
+		curl --location --silent https://raw.githubusercontent.com/$$ORG_REPO/main/scripts/build-container.sh > ./scripts/build-container.sh && \
+		chmod u+x ./scripts/build-container.sh
 
 build-plan:
 	@# Help: A target to build the local service repo
