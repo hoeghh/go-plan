@@ -1,5 +1,5 @@
 build-container-plan:
-	@scripts/build-container.sh
+	@./.plan/scripts/build-container.sh
 
 build-plan:
 #	@echo "Hello Bura : $(BURAFILE)"
