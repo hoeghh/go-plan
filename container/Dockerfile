@@ -1,23 +1,21 @@
 # syntax=docker/dockerfile:1
+FROM golang:1.20 AS builder
 
-FROM golang:1.20
-
-# Set destination for COPY
+## We create an /app directory in which
+## we'll put all of our project code
+RUN mkdir /app
 WORKDIR /app
-
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/engine/reference/builder/#copy
 COPY *.go ./
 
-# Build
+## We want to build our application's binary executable
 RUN GO111MODULE=off GOOS=linux go build -o /app
 
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/engine/reference/builder/#expose
+## the lightweight scratch image we'll
+## run our application within
+FROM alpine:latest AS production
+
+COPY --from=builder /app .
 EXPOSE 8080
 
-# Run
+
 CMD ["./app"]
