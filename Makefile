@@ -6,11 +6,9 @@ copy-%:
  		curl --location --silent https://raw.githubusercontent.com/$$ORG_REPO/main/scripts/$$TARGET.sh > ./scripts/$$TARGET.sh && \
  		chmod u+x ./scripts/$$TARGET.sh
 
-%: 
-ifneq ("$(wildcard ./scripts/$@.sh)","")
-	@echo "running ./scripts/$@.sh"
+%:
+ifneq (,$(wildcard ./scripts/$(@)))
 	@./scripts/$@.sh
 else
-	@echo "running ./.plan/scripts/$@.sh"
-	@./.plan/scripts/$@.sh
+	@.plan/scripts/$@.sh
 endif
