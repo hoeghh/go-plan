@@ -9,8 +9,8 @@ copy-%:
 
 %:
 	@# Help: A helper target to run remote scripts
-	@ifneq ($(wildcard ./scripts/$(@).sh),)
+ifneq ($(wildcard ./scripts/$(@).sh),)
 		@./scripts/$@.sh
-	@else
+else
 		@.plan/scripts/$@.sh
-	@endif
+endif
