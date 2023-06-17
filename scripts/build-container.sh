@@ -1,3 +1,5 @@
+# Help This target builds a container image with the go app
+
 export IMAGE_TAG="${IMGTAG:-"latest"}"
 
 if [ -f "bura.yaml" ]; then

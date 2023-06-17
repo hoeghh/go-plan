@@ -1,3 +1,5 @@
+# Help This target security scan the go app
+
 if ! command -v sysdig-cli-scanner &> /dev/null; then
     echo "sysdig-cli-scanner could not be found"
     echo "Install on mac via :"
@@ -20,6 +22,7 @@ if [ -f "bura.yaml" ]; then
     export REGITRY_PORT=$(cat bura.yaml | yq .vars.service.registry.port)
     export REGISTRY_ORG=$(cat bura.yaml | yq .vars.service.registry.org)
 fi
+
 
 mkdir -p .scan
 

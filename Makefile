@@ -1,4 +1,5 @@
 copy-%:
+	@# Help: A helper target to copy the remote build container script to local service repo
 	@echo "Copying script"
 	@mkdir -p scripts
 	@ORG_REPO=$(shell echo $(PLAN) | cut -d"/" -f4- | cut -d"." -f1); \
@@ -7,6 +8,7 @@ copy-%:
  		chmod u+x ./scripts/$$TARGET.sh
 
 %:
+	@# Help: A helper target to run remote scripts
 ifneq (,$(wildcard ./scripts/$(@)))
 	@./scripts/$@.sh
 else
