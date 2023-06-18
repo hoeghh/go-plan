@@ -7,8 +7,16 @@ copy-%:
  		chmod u+x ./scripts/$$TARGET.sh
 
 %:
-ifneq ($(wildcard ./scripts/$(@).sh),)
-		@./scripts/$@.sh
-else
-		@.plan/scripts/$@.sh
-endif
+	@if [ -f ./scripts/$@.sh ]; then \
+		./scripts/$@.sh; \
+	elif [ -f .plan/scripts/$@.sh ]; then \
+		.plan/scripts/$@.sh; \
+	else \
+		echo "No script found...."; \
+	fi
+# Cant get this to work...
+# ifneq ($(wildcard scripts/$(@).sh),)
+# 		@./scripts/$@.sh
+# else
+# 		@.plan/scripts/$@.sh
+# endif
