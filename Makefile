@@ -1,3 +1,17 @@
+.PHONY: no_targets__ list
+no_targets__:
+list:
+	@echo ""
+	@printf "%-5s %-20s %s\n" "Location" "Target" "Description"
+	@printf "%-8s %-20s %s\n" "--------" "--------------------" "---------------------------------------------------"
+	@if [ -d ./scripts/ ]; then \
+		grep -rnw ./scripts/ -e 'Help' --include='*' \
+			| awk -F ':' '{split($$1, parts, "/"); split(parts[length(parts)], filename, "."); printf "%-8s %-20s %s\n", "local", filename[1], substr($$0, index($$0, ":")+10)}'; \
+	fi
+	@grep -rnw .plan/scripts/ -e 'Help' --include='*' \
+		| awk -F ':' '{split($$1, parts, "/"); split(parts[length(parts)], filename, "."); printf "%-8s %-20s %s\n", "plan", filename[1], substr($$0, index($$0, ":")+10)}'
+	@echo ""
+	
 copy-%:
 	@echo "Copying script"
 	@mkdir -p scripts
