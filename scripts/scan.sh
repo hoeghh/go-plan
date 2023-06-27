@@ -17,13 +17,10 @@ if [ -z "$SECURE_API_TOKEN" ];then
 fi
 
 export IMAGE_TAG="${IMGTAG:-"latest"}"
-
-if [ -f "bura.yaml" ]; then
-    export IMAGE=$(cat bura.yaml | yq .vars.service.name)
-    export REGITRY_URL=$(cat bura.yaml | yq .vars.registry.url)
-    export REGITRY_PORT=$(cat bura.yaml | yq .vars.registry.port)
-    export REGISTRY_ORG=$(cat bura.yaml | yq .vars.registry.org)
-fi
+export IMAGE=${vars_service_name}
+export REGITRY_URL=${vars_registry_url}
+export REGITRY_PORT=${vars_registry_port}
+export REGISTRY_ORG=${vars_registry_org}
 
 mkdir -p .scan
 echo "- Running go-plan container security scan step..."
