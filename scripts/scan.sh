@@ -1,8 +1,10 @@
+#!/bin/bash
 # Help This target security scan the go app
+source .plan/scripts/init.sh
 
 if ! command -v sysdig-cli-scanner &> /dev/null; then
-    echo "sysdig-cli-scanner could not be found"
-    echo "Install on mac via :"
+    echo "- sysdig-cli-scanner could not be found"
+    echo "- Install on mac via :"
     echo "  - curl -LO \"https://download.sysdig.com/scanning/bin/sysdig-cli-scanner/$(curl -L -s https://download.sysdig.com/scanning/sysdig-cli-scanner/latest_version.txt)/$(uname -s | tr '[:upper:]' '[:lower:]')/amd64/sysdig-cli-scanner\""
     echo "  - sudo mv sysdig-cli-scanner /usr/local/bin"
     echo "  - chmod u+x /usr/local/bin/sysdig-cli-scanner"
@@ -18,14 +20,13 @@ export IMAGE_TAG="${IMGTAG:-"latest"}"
 
 if [ -f "bura.yaml" ]; then
     export IMAGE=$(cat bura.yaml | yq .vars.service.name)
-    export REGITRY_URL=$(cat bura.yaml | yq .vars.service.registry.url)
-    export REGITRY_PORT=$(cat bura.yaml | yq .vars.service.registry.port)
-    export REGISTRY_ORG=$(cat bura.yaml | yq .vars.service.registry.org)
+    export REGITRY_URL=$(cat bura.yaml | yq .vars.registry.url)
+    export REGITRY_PORT=$(cat bura.yaml | yq .vars.registry.port)
+    export REGISTRY_ORG=$(cat bura.yaml | yq .vars.registry.org)
 fi
 
-
 mkdir -p .scan
-
+echo "- Running go-plan container security scan step..."
 sysdig-cli-scanner \
     --apiurl https://eu1.app.sysdig.com/secure/ \
     --dbpath=.scan/ \

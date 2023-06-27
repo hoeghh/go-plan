@@ -21,6 +21,7 @@ copy-%:
  		chmod u+x ./scripts/$$TARGET.sh
 
 %:
+#	@. .plan/scripts/init.sh
 	@if [ -f ./scripts/$@.sh ]; then \
 		./scripts/$@.sh; \
 	elif [ -f .plan/scripts/$@.sh ]; then \
