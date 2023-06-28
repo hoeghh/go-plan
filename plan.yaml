@@ -1,0 +1,8 @@
+vars:
+  registry: 
+    org: velux2
+    url: hub.docker.com
+    port: 5000
+    description: "hej"
+test:
+  foo: bar
